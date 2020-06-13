@@ -1,6 +1,6 @@
 # MiniKeys
 
-A small javascript library for playing piano samples, simply pass in an array of samples with the following naming scheme:
+A small javascript library for playing piano samples. Pass in an array of samples with the following naming scheme:
 
 `[p/f][midi note]`
 
@@ -8,7 +8,9 @@ A small javascript library for playing piano samples, simply pass in an array of
 
 example:
 ```
-'/samples/p45.ogg'
-'/samples/f45.ogg'
+[
+    '/samples/p45.ogg',
+    '/samples/f45.ogg'
+]
 ```
 - 1 sample of *C4* provided for *piano* and *forte* dynamics.
