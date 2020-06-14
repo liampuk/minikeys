@@ -3,7 +3,7 @@ import MiniKeys from './main'
 MiniKeys.prototype.init = function () {
     window.AudioContext = window.AudioContext || window.webkitAudioContext;
     this._context = new AudioContext();
-    console.log("audio running");
+    // console.log("MiniKeys initialised");
 }
 
 MiniKeys.prototype.loadSamples = function (urlList) {
@@ -75,7 +75,7 @@ MiniKeys.prototype._loadBuffer = function (url, index) {
     });
 }
 
-MiniKeys.prototype.playNote = function (note, velocity) {
+MiniKeys.prototype.playNote = function (note, velocity, offset=0.75) {
     const dynamic = velocity >= 64 ? "f" : "p";
     const sample = this._sampleNotes.reduce((closest, curr) => {
         return Math.abs(curr-note) < Math.abs(closest-note) ? curr : closest;
@@ -84,17 +84,5 @@ MiniKeys.prototype.playNote = function (note, velocity) {
     source.buffer = this._noteBuffers[dynamic+sample];
     source.connect(this._context.destination);
     source.playbackRate.value = 2 ** ((note - sample) / 12);
-    source.start(0, 0.75);
+    source.start(0, offset);
 }
-
-// function playNote2(n){
-//     const sample = samplesList.reduce((closest, curr) => {
-//         return Math.abs(curr-n) < Math.abs(closest-n) ? curr : closest;
-//     }, samplesList[0]);
-
-//     let source = context.createBufferSource();
-//     source.buffer = bufferList[samplesList.indexOf(sample)];
-//     source.connect(context.destination);
-//     source.playbackRate.value = 2 ** ((n - sample) / 12);;
-//     source.start(0, 0.75);
-// }
