@@ -40,4 +40,12 @@ class MiniKeys {
     }
 }
 
+MiniKeys.prototype.getWhiteMidiNotes = function() {
+    return this._WHITEKEYSET;
+}
+
+MiniKeys.prototype.getBlackMidiNotes = function() {
+    return this._BLACKKEYSET;
+}
+
 export default MiniKeys;
