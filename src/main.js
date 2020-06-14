@@ -50,4 +50,21 @@ MiniKeys.prototype.getBlackMidiNotes = function() {
     return this._BLACKKEYSET;
 }
 
+MiniKeys.prototype.getKeyIndex = function() {
+    return this._keySetIndex;
+}
+
+MiniKeys.prototype.getKeys = function(){
+    let keys = [];
+    Object.keys(this._whiteKeys).forEach(key =>{
+        keys.push(key);
+    });
+    Object.keys(this._blackKeys).forEach(key =>{
+        if(this._blackKeys[key] != -1){
+            keys.push(key);
+        }
+    });
+    return keys;
+}
+
 export default MiniKeys;

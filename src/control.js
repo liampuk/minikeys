@@ -1,28 +1,11 @@
 import MiniKeys from './main'
 
-MiniKeys.prototype.getKeyIndex = function() {
-    return this._keySetIndex;
-}
-
 MiniKeys.prototype.volume = function(vol){
     if(vol < 0 || vol > 1){
         throw new Error('volume must be between 0 and 1');
     }
     this._volume = vol;
     this._gainNode.gain.value = this._volume;
-}
-
-MiniKeys.prototype.getKeys = function(){
-    let keys = [];
-    Object.keys(this._whiteKeys).forEach(key =>{
-        keys.push(key);
-    });
-    Object.keys(this._blackKeys).forEach(key =>{
-        if(this._blackKeys[key] != -1){
-            keys.push(key);
-        }
-    });
-    return keys;
 }
 
 MiniKeys.prototype.shift = function(shift, step=this.OCTAVE){

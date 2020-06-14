@@ -17,11 +17,15 @@ MiniKeys.prototype.init = function () {
 }
 
 MiniKeys.prototype.loadSamples = function (urlList) {
+    let samplesLoaded = 0;
     return new Promise((resolve, reject) => {
         const requests = urlList.map((url, index) => {
             return this._loadBuffer(url, index).then((midiNote) => {
                 this._sampleNotes[index] = midiNote;
                 if (!this._sampleNotes.includes(midiNote)) this._sampleNotes[index] = midiNote;
+                samplesLoaded++
+                let evt = new CustomEvent('sampleloaded', {detail: samplesLoaded/urlList.length});
+                document.dispatchEvent(evt);
             })
         });
 
