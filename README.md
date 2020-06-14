@@ -17,7 +17,9 @@ example:
 
 ## TODO
 
-- clean up interface with keyboard (move validation of key into library)
-- compress samples (.ogg)
-- trim start of samples
-- tidy/comment code
+- [x] clean up interface with keyboard (move validation of key into library)
+- [x] compress samples (.ogg)
+- [x] trim start of samples
+- [ ] tidy/comment code
+- [ ] add tests
+- [ ] write build guide for readme
