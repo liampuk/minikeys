@@ -14,3 +14,10 @@ example:
 ]
 ```
 - 1 sample of *C4* provided for *piano* and *forte* dynamics.
+
+## TODO
+
+- clean up interface with keyboard (move validation of key into library)
+- compress samples (.ogg)
+- trim start of samples
+- tidy/comment code
