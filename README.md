@@ -23,6 +23,6 @@ example:
 - [ ] tidy/comment code
 - [ ] add tests
 - [ ] write build guide for readme
-- [ ] add method for adding loading bar
-- [ ] add animations to page
+- [x] add method for adding loading bar
+- [x] add animations to page
 - [ ] fix on iOS
