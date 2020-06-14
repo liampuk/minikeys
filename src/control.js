@@ -1,7 +1,7 @@
 import MiniKeys from './main'
 
 MiniKeys.prototype.getKeyIndex = function() {
-    return this._WHITEKEYSET[this._keySetIndex];
+    return this._keySetIndex;
 }
 
 MiniKeys.prototype.getKeys = function(){

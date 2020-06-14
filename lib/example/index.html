@@ -1,10 +1,54 @@
 <!DOCTYPE html>
 <html>
+
 <head>
+    <link rel="stylesheet" type="text/css" href="style.css">
     <script src="../../dist/minikeys.min.js"></script>
     <script src="script.js"></script>
 </head>
-<body>
-    <button onclick="start()">init</button>
+
+<body onload="initPage()">
+    <canvas></canvas>
+    <div id="keyboard">
+        <table id="topRow">
+            <tr>
+                <td onmousedown="keyPress(this.innerText)" onmouseup="keyRelease(this.innerText)">q</td>
+                <td onmousedown="keyPress(this.innerText)" onmouseup="keyRelease(this.innerText)">w</td>
+                <td onmousedown="keyPress(this.innerText)" onmouseup="keyRelease(this.innerText)">e</td>
+                <td onmousedown="keyPress(this.innerText)" onmouseup="keyRelease(this.innerText)">r</td>
+                <td onmousedown="keyPress(this.innerText)" onmouseup="keyRelease(this.innerText)">t</td>
+                <td onmousedown="keyPress(this.innerText)" onmouseup="keyRelease(this.innerText)">y</td>
+                <td onmousedown="keyPress(this.innerText)" onmouseup="keyRelease(this.innerText)">u</td>
+                <td onmousedown="keyPress(this.innerText)" onmouseup="keyRelease(this.innerText)">i</td>
+                <td onmousedown="keyPress(this.innerText)" onmouseup="keyRelease(this.innerText)">o</td>
+                <td onmousedown="keyPress(this.innerText)" onmouseup="keyRelease(this.innerText)">p</td>
+                <td onmousedown="keyPress(this.innerText)" onmouseup="keyRelease(this.innerText)">[</td>
+                <td onmousedown="keyPress(this.innerText)" onmouseup="keyRelease(this.innerText)">]</td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <td onmousedown="keyPress(this.innerText)" onmouseup="keyRelease(this.innerText)">a</td>
+                <td onmousedown="keyPress(this.innerText)" onmouseup="keyRelease(this.innerText)">s</td>
+                <td onmousedown="keyPress(this.innerText)" onmouseup="keyRelease(this.innerText)">d</td>
+                <td onmousedown="keyPress(this.innerText)" onmouseup="keyRelease(this.innerText)">f</td>
+                <td onmousedown="keyPress(this.innerText)" onmouseup="keyRelease(this.innerText)">g</td>
+                <td onmousedown="keyPress(this.innerText)" onmouseup="keyRelease(this.innerText)">h</td>
+                <td onmousedown="keyPress(this.innerText)" onmouseup="keyRelease(this.innerText)">j</td>
+                <td onmousedown="keyPress(this.innerText)" onmouseup="keyRelease(this.innerText)">k</td>
+                <td onmousedown="keyPress(this.innerText)" onmouseup="keyRelease(this.innerText)">l</td>
+                <td onmousedown="keyPress(this.innerText)" onmouseup="keyRelease(this.innerText)">;</td>
+                <td onmousedown="keyPress(this.innerText)" onmouseup="keyRelease(this.innerText)">'</td>
+            </tr>
+        </table>
+        <table id="modifyers">
+            <tr>
+                <td onmousedown="keyPress(this.innerText)" onmouseup="keyRelease(this.innerText)">z</td>
+                <td onmousedown="keyPress(this.innerText)" onmouseup="keyRelease(this.innerText)">x</td>
+            </tr>
+        </table>
+    </div>
+    <!-- <button onmousedown="start()">init</button> -->
 </body>
+
 </html>
