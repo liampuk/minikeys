@@ -36,6 +36,8 @@ class MiniKeys {
         this._keySetIndex = 23;
         this.OCTAVE = 7;
         this.TONE = 1;
+        this._volume = 0.9;
+        this._compressorNode = null;
 
     }
 }

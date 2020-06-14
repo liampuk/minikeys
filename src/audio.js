@@ -3,7 +3,17 @@ import MiniKeys from './main'
 MiniKeys.prototype.init = function () {
     window.AudioContext = window.AudioContext || window.webkitAudioContext;
     this._context = new AudioContext();
-    // console.log("MiniKeys initialised");
+
+    let ctx = this._context;
+
+    this._compressorNode = ctx.createDynamicsCompressor();
+    this._compressorNode.threshold.setValueAtTime(-12, ctx.currentTime);
+    this._compressorNode.knee.setValueAtTime(0.0, ctx.currentTime);
+    this._compressorNode.ratio.setValueAtTime(15, ctx.currentTime);
+    this._compressorNode.attack.setValueAtTime(0.005, ctx.currentTime);
+    this._compressorNode.release.setValueAtTime(0.05, ctx.currentTime);
+
+    this._compressorNode.connect(ctx.destination);
 }
 
 MiniKeys.prototype.loadSamples = function (urlList) {
@@ -75,14 +85,28 @@ MiniKeys.prototype._loadBuffer = function (url, index) {
     });
 }
 
-MiniKeys.prototype.playNote = function (note, velocity, offset=0.75) {
-    const dynamic = velocity >= 64 ? "f" : "p";
+MiniKeys.prototype.playNote = function (note, velocity, offset=0) {
+    let dynamic = null;
+    let dynamicVol = null;
+    if(velocity >= 64 && velocity <=128){
+        dynamic = "f";
+        dynamicVol = ((velocity-64)/256+0.25)*this._volume;
+    }else if(velocity >=0){
+        dynamic = "p";
+        dynamicVol = (velocity/256)*this._volume;
+    }
     const sample = this._sampleNotes.reduce((closest, curr) => {
         return Math.abs(curr-note) < Math.abs(closest-note) ? curr : closest;
     }, this._sampleNotes[0]);
     let source = this._context.createBufferSource();
     source.buffer = this._noteBuffers[dynamic+sample];
-    source.connect(this._context.destination);
+
+    const gainNode = this._context.createGain();
+    gainNode.gain.value = dynamicVol;
+
+    source.connect(gainNode);
+
+    gainNode.connect(this._compressorNode);
     source.playbackRate.value = 2 ** ((note - sample) / 12);
     source.start(0, offset);
 }
