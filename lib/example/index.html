@@ -5,9 +5,13 @@
     <link rel="stylesheet" type="text/css" href="style.css">
     <script src="../../dist/minikeys.min.js"></script>
     <script src="script.js"></script>
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap" rel="stylesheet"> -->
+    <link href="https://fonts.googleapis.com/css2?family=Vollkorn&display=swap" rel="stylesheet">
 </head>
 
 <body onload="initPage()">
+    <h1>MiniKeys</h1>
+    <p>A tiny Javascript Library that plays the piano - see more on <a href="https://github.com/liampuk/minikeys">github</a></p>
     <canvas></canvas>
     <div id="keyboard">
         <table id="topRow">
@@ -45,6 +49,8 @@
             <tr>
                 <td onmousedown="keyPress(this.innerText)" onmouseup="keyRelease(this.innerText)">z</td>
                 <td onmousedown="keyPress(this.innerText)" onmouseup="keyRelease(this.innerText)">x</td>
+                <td onmousedown="keyPress(this.innerText)" onmouseup="keyRelease(this.innerText)">c</td>
+                <td onmousedown="keyPress(this.innerText)" onmouseup="keyRelease(this.innerText)">v</td>
             </tr>
         </table>
     </div>

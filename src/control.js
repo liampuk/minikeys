@@ -25,7 +25,7 @@ MiniKeys.prototype.shift = function(shift, step=this.OCTAVE){
     if(this._keySetIndex < 0){
         this._keySetIndex = 0;
     }else if(this._keySetIndex+11 > this._WHITEKEYSET.length){
-        this._keySetIndex-=shift*step;
+        this._keySetIndex=this._WHITEKEYSET.length-11;
     }
     let curIndex = this._keySetIndex;
     Object.keys(this._whiteKeys).forEach(key =>{
