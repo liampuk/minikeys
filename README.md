@@ -26,3 +26,5 @@ example:
 - [x] add method for adding loading bar
 - [x] add animations to page
 - [ ] fix on iOS
+- [ ] add midi parser and player
+- [ ] add tuning mode (perfect atm, out of tune with actual piano)
