@@ -28,3 +28,4 @@ example:
 - [ ] fix on iOS
 - [ ] add midi parser and player
 - [ ] add tuning mode (perfect atm, out of tune with actual piano)
+- [ ] move keyboard with mouse in example
