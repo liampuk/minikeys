@@ -41,6 +41,16 @@ miniKeys.loadSamples([
 ]);
 ```
 
+This function returns a promise, to wait until samples have loaded before execution functions use the following code:
+
+```js
+miniKeys.loadSamples(]
+    ...
+]).then((res) => {
+    yourFunction();
+})
+```
+
 MiniKeys works with any number of samples. When a note is played, MiniKeys finds the closest loaded sample and tunes it to the correct frequency. In the above example, only one sample has been loaded (with 2 dynamics), and so it will be used for all notes.
 
 ### Functions
