@@ -1,14 +1,14 @@
 {
-  "name": "minikeys2",
-  "version": "1.0.0",
-  "description": "",
+  "name": "minikeys",
+  "version": "0.1.1",
+  "description": "A javascript library that plays the piano",
   "main": "dist/minikeys.min.js",
   "scripts": {
     "test": "mocha -u tdd --require @babel/register",
     "build": "webpack --mode production"
   },
   "keywords": [],
-  "author": "",
+  "author": "liampuk",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.10.2",
@@ -19,5 +19,8 @@
     "mocha": "^8.0.1",
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.11"
-  }
+  },
+  "files":  [
+    "minikeys.min.js"
+  ]
 }
