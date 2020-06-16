@@ -18,6 +18,8 @@ MiniKeys is hosted via CDN and can be linked with the following:
 
 ## Reference
 
+### Setup
+
 First, instantiate a new instance of MiniKeys:
 
 ```js
@@ -41,6 +43,8 @@ miniKeys.loadSamples([
 
 MiniKeys works with any number of samples. When a note is played, MiniKeys finds the closest loaded sample and tunes it to the correct frequency. In the above example, only one sample has been loaded (with 2 dynamics), and so it will be used for all notes.
 
+### Functions
+
 To play a note use `playNote(note, velocity)` where note is a midi note (0 to 127), and velocity is a midi velocity value (between 0 and 127):
 
 ```js
@@ -63,6 +67,16 @@ Volume can be changed with `volume(value)`, where value is between 0 and 1:
 
 ```js
 miniKeys.volume(0.5);
+```
+
+### Events
+
+The `sampleloaded` event fires every time a sample is loaded and returns the current progress as a value between 0 and 1. It can be accessed using an event listener:
+
+```js
+document.addEventListener("sampleloaded", function (event) {
+    let progress = event.detail;
+});
 ```
 
 ## Build process
