@@ -2,7 +2,7 @@
 
 [![npm version](https://badge.fury.io/js/minikeys.svg)](https://badge.fury.io/js/minikeys) ![release](https://github.com/liampuk/minikeys/workflows/release/badge.svg)
 
-A tiny javascript library that plays the piano.
+A tiny javascript library that plays the piano. [Try it out here!](http://liamp.uk/minikeys)
 
 ## Get Started
 
