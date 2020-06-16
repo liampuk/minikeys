@@ -26,7 +26,7 @@ suite('Main', function () {
     });
     suite('MiniKeys.prototype.getKeys', function () {
         test('returns array of keys', function () {
-            assert.typeOf(miniKeys.getKeys(), 'array');
+            assert.typeOf(miniKeys.getActiveKeys(), 'array');
         });
     });
 });

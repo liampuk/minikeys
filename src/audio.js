@@ -33,9 +33,6 @@ MiniKeys.prototype.loadSamples = function (urlList) {
             resolve(this._sampleNotes);
         }).catch(error => reject(error))
     });
-
-
-
 }
 
 MiniKeys.prototype._loadBuffer = function (url, index) {

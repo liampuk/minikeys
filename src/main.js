@@ -36,9 +36,9 @@ class MiniKeys {
         this._keySetIndex = 23;
         this.OCTAVE = 7;
         this.TONE = 1;
+        this.NUMKEYS = 11;
         this._volume = 0.9;
         this._compressorNode = null;
-
     }
 }
 
@@ -54,7 +54,11 @@ MiniKeys.prototype.getKeyIndex = function() {
     return this._keySetIndex;
 }
 
-MiniKeys.prototype.getKeys = function(){
+MiniKeys.prototype.getKeyMap = function() {
+    return {...this._whiteKeys, ...this._blackKeys};
+}
+
+MiniKeys.prototype.getActiveKeys = function(){
     let keys = [];
     Object.keys(this._whiteKeys).forEach(key =>{
         keys.push(key);
