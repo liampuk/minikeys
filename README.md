@@ -41,7 +41,7 @@ miniKeys.loadSamples([
 ]);
 ```
 
-This function returns a promise, to wait until samples have loaded before execution functions use the following code:
+This function returns a promise, to wait until samples have loaded before continuing use the following code:
 
 ```js
 miniKeys.loadSamples(]
