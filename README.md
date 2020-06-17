@@ -89,6 +89,10 @@ document.addEventListener("sampleloaded", function (event) {
 });
 ```
 
+## Finding Samples
+
+[Pianobook](www.pianobook.co.uk) is a fantastic community project to provide free piano (and other instruments) samples. The samples used in the included example are from a [Steinway Concert Grand in Kristiansand, Norway](https://www.pianobook.co.uk/library/kristiansand-concert-steinway/). Thank you to [Pete Malkin](https://www.petemalkin.co.uk/) for sampling this lovely instrument!
+
 ## Build process
 
 First, clone the project, then run the following commands:
