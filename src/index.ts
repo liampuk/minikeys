@@ -10,5 +10,6 @@ export type {
 export {
   keyboardBlackNotes,
   keyboardWhiteNotes,
-  midiNoteMap,
+  midiToNote,
+  noteToMidi,
 } from './utils.js';

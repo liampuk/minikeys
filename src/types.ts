@@ -1,7 +1,7 @@
-import { midiNoteMap } from './utils.js';
+import { noteToMidi } from './utils.js';
 
-export type NoteName = keyof typeof midiNoteMap;
-export type MidiRange = (typeof midiNoteMap)[NoteName];
+export type NoteName = keyof typeof noteToMidi;
+export type MidiRange = (typeof noteToMidi)[NoteName];
 export type Velocity = 'piano' | 'forte';
 
 export type Sample = {

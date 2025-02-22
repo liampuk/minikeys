@@ -1,5 +1,5 @@
 import type { NoteName, Sample } from './types.js';
-import { getClosestNote, midiNoteMap } from './utils.js';
+import { getClosestNote, noteToMidi } from './utils.js';
 
 export class MiniKeys {
   private audioContext: AudioContext;
@@ -8,6 +8,7 @@ export class MiniKeys {
   private pianoNotes: Map<number, AudioBuffer> = new Map();
   private sustain: boolean = false;
   private playingNotes: Map<AudioBufferSourceNode, GainNode> = new Map();
+  private progress: number = 0;
 
   constructor() {
     this.audioContext = new AudioContext();
@@ -27,7 +28,13 @@ export class MiniKeys {
         const now = this.audioContext.currentTime;
         gainNode.gain.cancelScheduledValues(now);
         gainNode.gain.setValueAtTime(gainNode.gain.value, now);
-        gainNode.gain.linearRampToValueAtTime(0.01, now + 0.5);
+        gainNode.gain.linearRampToValueAtTime(0.001, now + 0.5);
+      });
+    } else {
+      this.playingNotes.forEach((gainNode) => {
+        const now = this.audioContext.currentTime;
+        gainNode.gain.cancelScheduledValues(now);
+        gainNode.gain.setValueAtTime(gainNode.gain.value, now);
       });
     }
   };
@@ -44,14 +51,17 @@ export class MiniKeys {
       const arrayBuffer = await data.arrayBuffer();
       const decodedAudio = await this.audioContext.decodeAudioData(arrayBuffer);
       if (sample.velocity === 'piano') {
-        this.pianoNotes.set(midiNoteMap[sample.note], decodedAudio);
+        this.pianoNotes.set(noteToMidi[sample.note], decodedAudio);
       } else {
-        this.forteNotes.set(midiNoteMap[sample.note], decodedAudio);
+        this.forteNotes.set(noteToMidi[sample.note], decodedAudio);
       }
       if (handleSampleLoaded) {
-        handleSampleLoaded(
-          (this.pianoNotes.size + this.forteNotes.size) / samples.length,
-        );
+        const newProgress =
+          (this.pianoNotes.size + this.forteNotes.size) / samples.length;
+        if (newProgress > this.progress) {
+          this.progress = newProgress;
+          handleSampleLoaded(this.progress);
+        }
       }
     });
     return await Promise.all(requests);
@@ -88,6 +98,9 @@ export class MiniKeys {
       gainNode.connect(this.compressorNode);
       source.playbackRate.value = 2 ** ((midiNote - closestNoteMidi) / 12);
 
+      source.start();
+      this.playingNotes.set(source, gainNode);
+
       if (!this.sustain) {
         const now = this.audioContext.currentTime;
         // gainNode.gain.exponentialRampToValueAtTime(Number.EPSILON, now + 8);
@@ -95,9 +108,6 @@ export class MiniKeys {
         gainNode.gain.setValueAtTime(gainNode.gain.value, now);
         gainNode.gain.exponentialRampToValueAtTime(Number.EPSILON, now + 8);
       }
-
-      source.start();
-      this.playingNotes.set(source, gainNode);
       source.onended = () => {
         source.disconnect();
         this.playingNotes.delete(source);
@@ -108,6 +118,6 @@ export class MiniKeys {
   };
 
   playNoteFromName = (noteName: NoteName, velocity?: number) => {
-    this.playNoteFromMidi(midiNoteMap[noteName], velocity);
+    this.playNoteFromMidi(noteToMidi[noteName], velocity);
   };
 }

@@ -42,8 +42,5 @@
     "test": "vitest run",
     "format": "prettier --write .",
     "check-format": "prettier --check ."
-  },
-  "dependencies": {
-    "zod": "^3.24.2"
   }
 }

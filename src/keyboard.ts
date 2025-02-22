@@ -1,9 +1,10 @@
-import type { KeyboardMode, KeyMap } from './types.js';
+import type { KeyboardMode, KeyMap, MidiRange } from './types.js';
 import {
   keyboardBlackNotes,
   keyboardRows,
   keyboardWhiteNotes,
-  midiNoteMap,
+  midiToNote,
+  noteToMidi,
 } from './utils.js';
 
 export class MiniKeysKeyboard {
@@ -22,6 +23,25 @@ export class MiniKeysKeyboard {
   }
 
   getNoteMap = () => this.keyMap;
+
+  getMidiRange = () => {
+    const low = Array.from(this.keyMap.values()).reduce(
+      (min, key) => (key.midiNote && key.midiNote < min ? key.midiNote : min),
+      127 as MidiRange,
+    );
+    const high = Array.from(this.keyMap.values()).reduce(
+      (max, note) =>
+        note.midiNote && note.midiNote > max ? note.midiNote : max,
+      0 as MidiRange,
+    );
+
+    return { low, high };
+  };
+
+  getNoteRange = () => {
+    const midiRange = this.getMidiRange();
+    return { low: midiToNote[midiRange.low], high: midiToNote[midiRange.high] };
+  };
 
   shiftLeft = () => {
     this.offset = Math.max(this.offset - 1, 0);
@@ -70,7 +90,7 @@ const loadBlackNotes = (
     if (blackNote === null) {
       keyMap.set(note, { midiNote: null, type: 'disabled' });
     } else if (blackNote !== undefined) {
-      keyMap.set(note, { midiNote: midiNoteMap[blackNote], type: 'black' });
+      keyMap.set(note, { midiNote: noteToMidi[blackNote], type: 'black' });
     } else {
       throw new Error('Invalid note');
     }
@@ -85,7 +105,7 @@ const loadWhiteNotes = (
   keyboardRows[rowIndex].forEach((note, i) => {
     const whiteNote = keyboardWhiteNotes[offset + i];
     if (whiteNote) {
-      keyMap.set(note, { midiNote: midiNoteMap[whiteNote], type: 'white' });
+      keyMap.set(note, { midiNote: noteToMidi[whiteNote], type: 'white' });
     } else {
       throw new Error('Invalid note');
     }

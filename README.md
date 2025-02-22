@@ -21,3 +21,19 @@ A tiny javascript library that plays the piano. [Try it out here!](http://liamp.
 ## Build process
 
 - TODO: update build process
+
+## TODO
+
+- Function to play multiple notes
+- Add tests
+- Look into replacing compressor
+- New package for chords? @minikeys/chords?
+- Custom labels for piano (for showing keyboard keys?)
+
+## Demos
+
+- Jazznotes
+- Minikeys website
+- Orchid style chord player
+- Music theory demo
+  - piano on bottom, circle of fifths, stave showing notes, colour coded for extensions etc.
