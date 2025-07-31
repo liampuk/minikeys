@@ -4,7 +4,7 @@
 
 A tiny javascript library that plays the piano. [Try it out here!](http://liamp.uk/minikeys)
 
-To use MiniKeys in a React app, you can use components from [@minikeys/react](https://npmjs.com)
+To use MiniKeys in a React app, you can use components from [@minikeys/react](https://npmjs.com/)
 
 <img width="1269" height="486" alt="Screenshot 2025-07-31 at 21 23 08" src="https://github.com/user-attachments/assets/1ff24de7-9222-42f0-ba74-9a3618ef9cd6" />
 
