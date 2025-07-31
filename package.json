@@ -25,7 +25,8 @@
     "url": "git+https://github.com/liampuk/minikeys.git"
   },
   "files": [
-    "dist"
+    "dist",
+    "README.md"
   ],
   "type": "module",
   "license": "MIT",
