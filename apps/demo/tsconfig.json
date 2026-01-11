@@ -15,7 +15,6 @@
     "resolveJsonModule": true, // Include modules imported with .json extension
     "noEmit": true, // Do not emit output (meaning do not compile code, only perform type checking)
     "jsx": "react-jsx", // Support JSX in .tsx files
-    "types": ["minikeys", "@minikeys/react", "styled-components"] // Type declaration files to be included in compilation
   },
   "include": [
     "src/**/*" // *** The files TypeScript should type check ***
