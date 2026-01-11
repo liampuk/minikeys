@@ -16,6 +16,7 @@ type Props = {
   delayDisplay?: number | null
   indicator?: "active" | "inactive"
   onClick?: () => void
+  onMouseUp?: () => void
 }
 
 export const Key = ({
@@ -30,20 +31,24 @@ export const Key = ({
   delayDisplay,
   indicator,
   onClick,
+  onMouseUp,
 }: Props) => {
   const [hide, setHide] = useState(
-    delayDisplay !== undefined && delayDisplay !== null
+    delayDisplay !== undefined && delayDisplay !== null,
   )
 
-  if(active) {
-    console.log(active)
+  if (active) {
+    // console.log(active)
   }
 
   useEffect(() => {
     if (hide) {
-      setTimeout(() => {
-        setHide(false)
-      }, (delayDisplay ?? 0) * 10)
+      setTimeout(
+        () => {
+          setHide(false)
+        },
+        (delayDisplay ?? 0) * 10,
+      )
     }
   }, [])
 
@@ -60,6 +65,7 @@ export const Key = ({
         $active={active || false}
         $keyType={modifier ? "modifier" : keyType}
         onMouseDown={modifier ? modifier.action : onClick}
+        onMouseUp={onMouseUp}
         $bgColour={modifier?.bgColour}
         $colour={modifier?.colour}
       >
@@ -86,7 +92,9 @@ const Container = styled.div<{
   display: ${(props) => (props.$hidden ? "none" : "block")};
   padding: calc(var(--height) * 0.05);
 
-  transition: transform 0.3s ease, opacity 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    opacity 0.3s ease;
   opacity: 0;
   transform: translateY(calc(var(--height) * -0.1));
   ${({ $hide, $hiddenOpacity }) =>
@@ -112,7 +120,8 @@ const unplayableKeycap = css`
 
 const activeKeycap = css`
   transform: translateY(calc(var(--height) * 0.03));
-  box-shadow: 0 calc(var(--height) * 0.01) calc(var(--height) * 0.03)
+  box-shadow:
+    0 calc(var(--height) * 0.01) calc(var(--height) * 0.03)
       calc(var(--height) * 0.01) rgba(0, 0, 0, 0),
     rgba(255, 255, 255, 0.2) 0px calc(var(--height) * 0.03)
       calc(var(--height) * 0.04) 0px inset;
@@ -186,7 +195,8 @@ const Keycap = styled.div<{
   font-size: calc(var(--height) * 0.15);
   cursor: pointer;
   user-select: none;
-  box-shadow: 0 calc(var(--height) * 0.01) calc(var(--height) * 0.03)
+  box-shadow:
+    0 calc(var(--height) * 0.01) calc(var(--height) * 0.03)
       calc(var(--height) * 0.01) rgba(0, 0, 0, 0.1),
     rgba(255, 255, 255, 0.1) 0px calc(var(--height) * 0.03)
       calc(var(--height) * 0.04) 0px inset;

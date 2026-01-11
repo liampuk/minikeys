@@ -49,6 +49,12 @@ export const useMiniKeys = (samples: Sample[]) => {
     playNoteFromMidi: minikeysRef.current
       ? minikeysRef.current.playNoteFromMidi
       : undefined,
+    liftNoteFromName: minikeysRef.current
+      ? minikeysRef.current.liftNoteFromName
+      : undefined,
+    liftNoteFromMidi: minikeysRef.current
+      ? minikeysRef.current.liftNoteFromMidi
+      : undefined,
     setSustain: setMiniKeysSustain,
     sustain,
     isLoading,

@@ -6,11 +6,11 @@ import { Piano, PianoProps } from "../Piano"
 type Story = StoryObj<typeof Piano>
 
 const PlayablePianoSetup = (props: PianoProps) => {
-  const { playNoteFromMidi, isLoading } = useMiniKeys(samples)
+  const { playNoteFromMidi, liftNoteFromMidi, isLoading } = useMiniKeys(samples)
 
   return (
     <>
-      <Piano {...props} onClick={playNoteFromMidi} />
+      <Piano {...props} onClick={playNoteFromMidi} onKeyUp={liftNoteFromMidi} />
       <>
         <p>{isLoading ? "Loading samples..." : null}</p>
       </>

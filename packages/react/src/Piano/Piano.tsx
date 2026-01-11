@@ -17,6 +17,7 @@ export type PianoProps = {
   highlights?: Highlights
   noBorder?: boolean
   onClick?: (midiNote: number) => void
+  onKeyUp?: (midiNote: number) => void
 }
 
 export const Piano = ({
@@ -30,6 +31,7 @@ export const Piano = ({
   noBorder = false,
   highlights,
   onClick,
+  onKeyUp,
   ...props
 }: PianoProps) => {
   const keyHeight = height ?? Math.min((width / numKeys) * 5, width / 4)
@@ -37,12 +39,18 @@ export const Piano = ({
 
   const baseNoteOffset = Math.min(
     keyboardWhiteNotes.indexOf(baseNote),
-    52 - numKeys
+    52 - numKeys,
   )
 
   const handleClick = (midiNote: number | null | undefined) => {
     if (onClick && midiNote !== null && midiNote !== undefined) {
       onClick(midiNote)
+    }
+  }
+
+  const handleKeyUp = (midiNote: number | null | undefined) => {
+    if (onKeyUp && midiNote !== null && midiNote !== undefined) {
+      onKeyUp(midiNote)
     }
   }
 
@@ -65,6 +73,7 @@ export const Piano = ({
           showLabels={showLabels}
           highlights={highlights}
           handleClick={handleClick}
+          handleKeyUp={handleKeyUp}
           noBorder={noBorder}
         />
       </g>
@@ -78,6 +87,7 @@ export const Piano = ({
           showLabels={showLabels}
           highlights={highlights}
           handleClick={handleClick}
+          handleKeyUp={handleKeyUp}
           noBorder={noBorder}
         />
       </g>

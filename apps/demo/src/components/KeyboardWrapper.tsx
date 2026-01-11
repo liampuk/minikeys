@@ -9,10 +9,15 @@ import { useNotes } from "../store"
 
 type Props = {
   playNoteFromMidi: ((midiNote: number, velocity?: number) => void) | undefined
+  liftNoteFromMidi: ((midiNote: number) => void) | undefined
   setSustain: ((sustain: boolean) => void) | undefined
 }
 
-export const KeyboardWrapper = ({ playNoteFromMidi, setSustain }: Props) => {
+export const KeyboardWrapper = ({
+  playNoteFromMidi,
+  liftNoteFromMidi,
+  setSustain,
+}: Props) => {
   const {
     keyMap,
     noteRange,
@@ -26,7 +31,7 @@ export const KeyboardWrapper = ({ playNoteFromMidi, setSustain }: Props) => {
   const setActiveNotes = useNotes((state) => state.setActiveNotes)
 
   useEffect(() => {
-    noteRange && setNoteRange(noteRange)
+    if (noteRange) setNoteRange(noteRange)
   }, [noteRange, setNoteRange])
 
   const [leftSustain, setLeftSustain] = useState(false)
@@ -116,11 +121,12 @@ export const KeyboardWrapper = ({ playNoteFromMidi, setSustain }: Props) => {
   const { activeKeys } = useKeyboardControl(
     keyMap,
     playNoteFromMidi,
+    liftNoteFromMidi,
     modifierKeys,
   )
 
   useEffect(() => {
-    activeKeys && setActiveNotes(activeKeys.map((key) => key.note))
+    if (activeKeys) setActiveNotes(activeKeys.map((key) => key.note))
   }, [activeKeys, setActiveNotes])
 
   return (
@@ -132,6 +138,7 @@ export const KeyboardWrapper = ({ playNoteFromMidi, setSustain }: Props) => {
       activeKeys={activeKeys}
       keyMap={keyMap}
       onKeyClick={playNoteFromMidi}
+      onKeyUp={liftNoteFromMidi}
       modifierKeys={modifierKeys}
     />
   )

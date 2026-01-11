@@ -16,10 +16,14 @@ const defaultArgs: Partial<KeyboardProps> = {
 }
 
 const InteractiveSingleKeyboardNoModifiers = (props: KeyboardProps) => {
-  const { playNoteFromMidi } = useMiniKeys(samples)
+  const { playNoteFromMidi, liftNoteFromMidi } = useMiniKeys(samples)
   const { keyMap } = useMiniKeysKeyboard(props?.dualMode ? "dual" : "single")
 
-  const { activeKeys } = useKeyboardControl(keyMap, playNoteFromMidi)
+  const { activeKeys } = useKeyboardControl(
+    keyMap,
+    playNoteFromMidi,
+    liftNoteFromMidi,
+  )
 
   return (
     <Keyboard
@@ -27,12 +31,13 @@ const InteractiveSingleKeyboardNoModifiers = (props: KeyboardProps) => {
       activeKeys={activeKeys}
       keyMap={keyMap}
       onKeyClick={playNoteFromMidi}
+      onKeyUp={liftNoteFromMidi}
     />
   )
 }
 
 const InteractiveSingleKeyboard = (props: KeyboardProps) => {
-  const { playNoteFromMidi } = useMiniKeys(samples)
+  const { playNoteFromMidi, liftNoteFromMidi } = useMiniKeys(samples)
   const { keyMap, transposeDown, transposeUp, octaveDown, octaveUp } =
     useMiniKeysKeyboard(props?.dualMode ? "dual" : "single")
 
@@ -62,7 +67,8 @@ const InteractiveSingleKeyboard = (props: KeyboardProps) => {
   const { activeKeys } = useKeyboardControl(
     keyMap,
     playNoteFromMidi,
-    modifierKeys
+    liftNoteFromMidi,
+    modifierKeys,
   )
 
   return (
@@ -72,15 +78,17 @@ const InteractiveSingleKeyboard = (props: KeyboardProps) => {
       activeKeys={activeKeys}
       keyMap={keyMap}
       onKeyClick={playNoteFromMidi}
+      onKeyUp={liftNoteFromMidi}
       modifierKeys={modifierKeys}
     />
   )
 }
 
 const InteractiveDualKeyboard = (props: KeyboardProps) => {
-  const { playNoteFromMidi, setSustain } = useMiniKeys(samples)
+  const { playNoteFromMidi, liftNoteFromMidi, setSustain } =
+    useMiniKeys(samples)
   const { keyMap, octaveDown, octaveUp } = useMiniKeysKeyboard(
-    props?.dualMode ? "dual" : "single"
+    props?.dualMode ? "dual" : "single",
   )
 
   useEffect(() => {
@@ -103,7 +111,8 @@ const InteractiveDualKeyboard = (props: KeyboardProps) => {
   const { activeKeys } = useKeyboardControl(
     keyMap,
     playNoteFromMidi,
-    modifierKeys
+    liftNoteFromMidi,
+    modifierKeys,
   )
 
   return (
@@ -112,6 +121,7 @@ const InteractiveDualKeyboard = (props: KeyboardProps) => {
       activeKeys={activeKeys}
       keyMap={keyMap}
       onKeyClick={playNoteFromMidi}
+      onKeyUp={liftNoteFromMidi}
       modifierKeys={modifierKeys}
     />
   )
@@ -120,9 +130,9 @@ const InteractiveDualKeyboard = (props: KeyboardProps) => {
 const InteractiveSingleKeyboardWithColour = (props: KeyboardProps) => {
   const [dualModeToggle, setDualModeToggle] = useState(props.dualMode)
   const [showFullKeyboardToggle, setShowFullKeyboardToggle] = useState(
-    props.showFullKeyboard
+    props.showFullKeyboard,
   )
-  const { playNoteFromMidi } = useMiniKeys(samples)
+  const { playNoteFromMidi, liftNoteFromMidi } = useMiniKeys(samples)
   const { keyMap, transposeDown, transposeUp, octaveDown, octaveUp } =
     useMiniKeysKeyboard(dualModeToggle ? "dual" : "single")
 
@@ -182,7 +192,8 @@ const InteractiveSingleKeyboardWithColour = (props: KeyboardProps) => {
   const { activeKeys } = useKeyboardControl(
     keyMap,
     playNoteFromMidi,
-    modifierKeys
+    liftNoteFromMidi,
+    modifierKeys,
   )
 
   return (
@@ -193,13 +204,15 @@ const InteractiveSingleKeyboardWithColour = (props: KeyboardProps) => {
       activeKeys={activeKeys}
       keyMap={keyMap}
       onKeyClick={playNoteFromMidi}
+      onKeyUp={liftNoteFromMidi}
       modifierKeys={modifierKeys}
     />
   )
 }
 
 const InteractiveSingleKeyboardWithSustain = (props: KeyboardProps) => {
-  const { playNoteFromMidi, setSustain } = useMiniKeys(samples)
+  const { playNoteFromMidi, liftNoteFromMidi, setSustain } =
+    useMiniKeys(samples)
   const { keyMap, transposeDown, transposeUp, octaveDown, octaveUp } =
     useMiniKeysKeyboard(props?.dualMode ? "dual" : "single")
 
@@ -290,7 +303,8 @@ const InteractiveSingleKeyboardWithSustain = (props: KeyboardProps) => {
   const { activeKeys } = useKeyboardControl(
     keyMap,
     playNoteFromMidi,
-    modifierKeys
+    liftNoteFromMidi,
+    modifierKeys,
   )
 
   return (
@@ -299,6 +313,7 @@ const InteractiveSingleKeyboardWithSustain = (props: KeyboardProps) => {
       activeKeys={activeKeys}
       keyMap={keyMap}
       onKeyClick={playNoteFromMidi}
+      onKeyUp={liftNoteFromMidi}
       modifierKeys={modifierKeys}
     />
   )
@@ -387,6 +402,7 @@ export default {
   component: Keyboard,
   argTypes: {
     onKeyClick: { control: { disable: true } },
+    onKeyUp: { control: { disable: true } },
     keyMap: { control: { disable: true } },
     activeKeys: { control: { disable: true } },
     modifierKeys: { control: { disable: true } },

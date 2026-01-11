@@ -15,6 +15,7 @@ type Props = {
   highlights?: Highlights
   noBorder?: boolean
   handleClick?: (midiNote: number | null | undefined) => void
+  handleKeyUp?: (midiNote: number | null | undefined) => void
 }
 
 export const WhiteNotes = ({
@@ -28,6 +29,7 @@ export const WhiteNotes = ({
   highlights,
   noBorder,
   handleClick,
+  handleKeyUp,
 }: Props) => {
   const keyWidth =
     (width - strokeWidth / 2) / numKeys +
@@ -43,7 +45,7 @@ export const WhiteNotes = ({
         keyboardWhiteNotes
           .slice(
             nextWhiteNoteIndex(highlights?.rangeStart ?? "A0"),
-            prevWhiteNoteIndex(highlights?.rangeEnd ?? "C8") + 1
+            prevWhiteNoteIndex(highlights?.rangeEnd ?? "C8") + 1,
           )
           .includes(keyboardWhiteNotes[baseNoteOffset + i])
       ) {
@@ -63,7 +65,14 @@ export const WhiteNotes = ({
   }
 
   return Array.from({ length: numKeys }).map((_, i) => (
-    <g key={`piano-key-white-${i}`} onMouseDown={() => handleNoteClick(i)}>
+    <g
+      key={`piano-key-white-${i}`}
+      onMouseDown={() => handleNoteClick(i)}
+      onMouseUp={() =>
+        handleKeyUp &&
+        handleKeyUp(noteToMidi[keyboardWhiteNotes[baseNoteOffset + i]])
+      }
+    >
       <PianoKeyRect
         width={keyWidth}
         height={height}

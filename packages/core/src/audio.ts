@@ -7,7 +7,7 @@ export class MiniKeys {
   private forteNotes: Map<number, AudioBuffer> = new Map();
   private pianoNotes: Map<number, AudioBuffer> = new Map();
   private sustain: boolean = false;
-  private playingNotes: Map<AudioBufferSourceNode, GainNode> = new Map();
+  private playingNotes: Map<AudioBufferSourceNode, {node: GainNode, note: number}> = new Map();
   private progress: number = 0;
 
   constructor() {
@@ -26,15 +26,15 @@ export class MiniKeys {
     if (!sustain) {
       this.playingNotes.forEach((gainNode) => {
         const now = this.audioContext.currentTime;
-        gainNode.gain.cancelScheduledValues(now);
-        gainNode.gain.setValueAtTime(gainNode.gain.value, now);
-        gainNode.gain.linearRampToValueAtTime(0.001, now + 0.5);
+        gainNode.node.gain.cancelScheduledValues(now);
+        gainNode.node.gain.setValueAtTime(gainNode.node.gain.value, now);
+        gainNode.node.gain.linearRampToValueAtTime(0.001, now + 0.5);
       });
     } else {
       this.playingNotes.forEach((gainNode) => {
         const now = this.audioContext.currentTime;
-        gainNode.gain.cancelScheduledValues(now);
-        gainNode.gain.setValueAtTime(gainNode.gain.value, now);
+        gainNode.node.gain.cancelScheduledValues(now);
+        gainNode.node.gain.setValueAtTime(gainNode.node.gain.value, now);
       });
     }
   };
@@ -99,15 +99,15 @@ export class MiniKeys {
       source.playbackRate.value = 2 ** ((midiNote - closestNoteMidi) / 12);
 
       source.start();
-      this.playingNotes.set(source, gainNode);
+      this.playingNotes.set(source, {node: gainNode, note: midiNote});
 
-      if (!this.sustain) {
-        const now = this.audioContext.currentTime;
-        // gainNode.gain.exponentialRampToValueAtTime(Number.EPSILON, now + 8);
-        gainNode.gain.cancelScheduledValues(now);
-        gainNode.gain.setValueAtTime(gainNode.gain.value, now);
-        gainNode.gain.exponentialRampToValueAtTime(Number.EPSILON, now + 8);
-      }
+      // if (!this.sustain) {
+      //   const now = this.audioContext.currentTime;
+      //   // gainNode.gain.exponentialRampToValueAtTime(Number.EPSILON, now + 8);
+      //   gainNode.gain.cancelScheduledValues(now);
+      //   gainNode.gain.setValueAtTime(gainNode.gain.value, now);
+      //   gainNode.gain.exponentialRampToValueAtTime(Number.EPSILON, now + 8);
+      // }
       source.onended = () => {
         source.disconnect();
         this.playingNotes.delete(source);
@@ -119,5 +119,23 @@ export class MiniKeys {
 
   playNoteFromName = (noteName: NoteName, velocity?: number) => {
     this.playNoteFromMidi(noteToMidi[noteName], velocity);
+  };
+
+  liftNoteFromMidi = (midiNote: number) => {
+    this.playingNotes.forEach((gainNode) => {
+      if(gainNode.note === midiNote) {
+        if (!this.sustain) {
+          const now = this.audioContext.currentTime;
+          // gainNode.gain.exponentialRampToValueAtTime(Number.EPSILON, now + 8);
+          gainNode.node.gain.cancelScheduledValues(now);
+          gainNode.node.gain.setValueAtTime(gainNode.node.gain.value, now);
+          gainNode.node.gain.exponentialRampToValueAtTime(Number.EPSILON, now + 8);
+        }
+      }
+    })
+  }
+
+  liftNoteFromName = (noteName: NoteName, velocity?: number) => {
+    this.liftNoteFromMidi(noteToMidi[noteName]);
   };
 }

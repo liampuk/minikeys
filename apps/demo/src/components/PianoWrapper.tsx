@@ -4,9 +4,10 @@ import { useNotes } from "../store"
 
 type Props = {
   playNoteFromMidi: ((midiNote: number, velocity?: number) => void) | undefined
+  liftNoteFromMidi: ((midiNote: number) => void) | undefined
 }
 
-export const PianoWrapper = ({ playNoteFromMidi }: Props) => {
+export const PianoWrapper = ({ playNoteFromMidi, liftNoteFromMidi }: Props) => {
   const noteRange = useNotes((state) => state.noteRange)
   const activeNotes = useNotes((state) => state.activeNotes)
 
@@ -24,6 +25,7 @@ export const PianoWrapper = ({ playNoteFromMidi }: Props) => {
         strokeColour="#ddd"
         strokeWidth={1.5}
         onClick={playNoteFromMidi}
+        onKeyUp={liftNoteFromMidi}
         highlights={highlights}
         noBorder={true}
       />

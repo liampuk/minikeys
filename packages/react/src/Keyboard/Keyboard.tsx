@@ -28,6 +28,7 @@ export type KeyboardProps = {
   keyMap: KeyMap | undefined
   animate?: boolean
   onKeyClick?: (midiNote: number) => void
+  onKeyUp?: (midiNote: number) => void
 }
 
 const activeKeysIncludes = (activeKeys: ActiveKey[], key: string) => {
@@ -43,6 +44,7 @@ export const Keyboard = ({
   keyMap,
   animate = false,
   onKeyClick,
+  onKeyUp,
 }: KeyboardProps) => {
   const nonPlayableModifierKey = modifierKeys?.some(
     (modifierKey) =>
@@ -70,16 +72,22 @@ export const Keyboard = ({
     }
   }
 
+  const onMouseUp = (midiNote: number | null | undefined) => {
+    if (onKeyUp && midiNote !== null && midiNote !== undefined) {
+      onKeyUp(midiNote)
+    }
+  }
+
   const displayMap = useMemo(
     () => getDisplayMap(showFullKeyboard, dualMode, modifierKeys),
     [showFullKeyboard, dualMode, modifierKeys],
   )
 
-  console.log(
-    activeKeys,
-    keyboardRows[0][1],
-    activeKeysIncludes(activeKeys, keyboardRows[0][1]),
-  )
+  // console.log(
+  //   activeKeys,
+  //   keyboardRows[0][1],
+  //   activeKeysIncludes(activeKeys, keyboardRows[0][1]),
+  // )
 
   return (
     <Container $width={width}>
@@ -121,6 +129,9 @@ export const Keyboard = ({
             active={activeKeysIncludes(activeKeys, keyboardRows[0][i])}
             onClick={() =>
               handleClick(keyMap?.get(keyboardRows[0][i])?.midiNote)
+            }
+            onMouseUp={() =>
+              onMouseUp(keyMap?.get(keyboardRows[0][i])?.midiNote)
             }
             hiddenOpacity={!displayMap.get(keyboardRows[0][i])}
             modifier={
@@ -172,6 +183,9 @@ export const Keyboard = ({
             onClick={() =>
               handleClick(keyMap?.get(keyboardRows[1][i])?.midiNote)
             }
+            onMouseUp={() =>
+              onMouseUp(keyMap?.get(keyboardRows[1][i])?.midiNote)
+            }
           />
         ))}
         <Key
@@ -220,6 +234,9 @@ export const Keyboard = ({
             onClick={() =>
               handleClick(keyMap?.get(keyboardRows[2][i])?.midiNote)
             }
+            onMouseUp={() =>
+              onMouseUp(keyMap?.get(keyboardRows[2][i])?.midiNote)
+            }
           />
         ))}
         <Key
@@ -267,6 +284,9 @@ export const Keyboard = ({
             active={activeKeysIncludes(activeKeys, keyboardRows[3][i])}
             onClick={() =>
               handleClick(keyMap?.get(keyboardRows[3][i])?.midiNote)
+            }
+            onMouseUp={() =>
+              onMouseUp(keyMap?.get(keyboardRows[3][i])?.midiNote)
             }
             hiddenOpacity={!displayMap.get(keyboardRows[3][i])}
             modifier={

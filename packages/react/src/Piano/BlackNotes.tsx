@@ -13,6 +13,7 @@ type Props = {
   highlights?: Highlights
   noBorder?: boolean
   handleClick?: (midiNote: number | null | undefined) => void
+  handleKeyUp?: (midiNote: number | null | undefined) => void
 }
 
 export const BlackNotes = ({
@@ -25,6 +26,7 @@ export const BlackNotes = ({
   highlights,
   noBorder,
   handleClick,
+  handleKeyUp,
 }: Props) => {
   const keyWidth =
     (width - strokeWidth / 2) / numKeys +
@@ -66,7 +68,17 @@ export const BlackNotes = ({
   return Array.from({ length: numKeys + 1 }).map(
     (_, i) =>
       keyboardBlackNotes[baseNoteOffset + i] && (
-        <g key={`piano-key-black-${i}`} onMouseDown={() => handleNoteClick(i)}>
+        <g
+          key={`piano-key-black-${i}`}
+          onMouseDown={() => handleNoteClick(i)}
+          onMouseUp={() => {
+            const note = keyboardBlackNotes[baseNoteOffset + i]
+            if (note === null) {
+              return
+            }
+            return handleKeyUp && handleKeyUp(noteToMidi[note])
+          }}
+        >
           <PianoKeyRect
             width={keyWidth * 0.65}
             height={height * 0.65}
@@ -101,6 +113,6 @@ export const BlackNotes = ({
               </NoteLabel>
             )}
         </g>
-      )
+      ),
   )
 }

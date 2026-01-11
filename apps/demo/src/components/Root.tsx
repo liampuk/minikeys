@@ -8,8 +8,13 @@ import { PianoWrapper } from "./PianoWrapper"
 
 export const Root = () => {
   const [isFontLoading, setIsFontLoading] = useState(true)
-  const { playNoteFromMidi, setSustain, isLoading, progress } =
-    useMiniKeys(samples)
+  const {
+    playNoteFromMidi,
+    liftNoteFromMidi,
+    setSustain,
+    isLoading,
+    progress,
+  } = useMiniKeys(samples)
 
   useEffect(() => {
     document.fonts.load("12px Vollkorn").then(() => {
@@ -36,9 +41,13 @@ export const Root = () => {
         <Loading progress={progress} />
       ) : (
         <MiniKeysBlock $gap="8vh">
-          <PianoWrapper playNoteFromMidi={playNoteFromMidi} />
+          <PianoWrapper
+            playNoteFromMidi={playNoteFromMidi}
+            liftNoteFromMidi={liftNoteFromMidi}
+          />
           <KeyboardWrapper
             playNoteFromMidi={playNoteFromMidi}
+            liftNoteFromMidi={liftNoteFromMidi}
             setSustain={setSustain}
           />
         </MiniKeysBlock>
