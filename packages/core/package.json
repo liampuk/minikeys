@@ -37,7 +37,7 @@
     "vitest": "^3.0.5"
   },
   "scripts": {
-    "build": "tsup",
+    "build": "tsup src/index.ts --out-dir dist",
     "ci": "npm run build && npm run check-format && npm run lint && npm run test",
     "lint": "tsc",
     "test": "vitest run",
