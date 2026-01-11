@@ -45,9 +45,9 @@ jobs:
         run: |
           rm -rf site
           mkdir -p site/minikeys
-          cp -r apps/demo/dist/* site/minikeys/
-          mkdir site/minikeys/storybook
-          cp -r packages/react/storybook-static/* site/minikeys/storybook/
+          cp -r apps/demo/dist/* site/
+          mkdir site/storybook
+          cp -r packages/react/storybook-static/* site/storybook/
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact
