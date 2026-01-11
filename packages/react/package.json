@@ -17,8 +17,7 @@
   "scripts": {
     "build": "tsup",
     "dev": "storybook dev -p 6006",
-    "build-storybook": "storybook build",
-    "deploy-storybook": "storybook build && gh-pages -d storybook-static"
+    "build:storybook": "storybook build -o storybook-static"
   },
   "author": "liamp.uk",
   "type": "module",

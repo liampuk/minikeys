@@ -39,12 +39,21 @@ jobs:
         run: npm install
       - name: Build demo app
         run: npm run build
+      - name: Build storybook
+        run: npm run build:storybook
+      - name: Assemble GitHub Pages folder
+        run: |
+          rm -rf site
+          mkdir -p site/minikeys
+          cp -r apps/demo/dist/* site/minikeys/
+          mkdir site/minikeys/storybook
+          cp -r packages/react/storybook-static/* site/minikeys/storybook/
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
         with:
-          path: 'apps/demo/dist'
+          path: 'site'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
