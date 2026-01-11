@@ -1,0 +1,71 @@
+import { useState } from "react"
+import styled from "styled-components"
+
+export const Keyboard = () => {
+  const [hideModifiers, _setHideModifiers] = useState(true)
+
+  return (
+    <Container>
+      <Row>
+        <Key $hidden={hideModifiers}>key</Key>
+        {Array.from({ length: 13 }).map((_, i) => (
+          <Key key={i}>key</Key>
+        ))}
+        <Key modifier={2} $hidden={hideModifiers}>
+          key
+        </Key>
+      </Row>
+      <Row>
+        <Key modifier={1.5} $hidden={hideModifiers}>
+          key
+        </Key>
+        {Array.from({ length: 12 }).map((_, i) => (
+          <Key key={i}>key</Key>
+        ))}
+        <Key modifier={1.5} $hidden={hideModifiers}>
+          key
+        </Key>
+      </Row>
+      <Row>
+        <Key modifier={1.75} $hidden={hideModifiers}>
+          key
+        </Key>
+        {Array.from({ length: 11 }).map((_, i) => (
+          <Key key={i}>key</Key>
+        ))}
+        <Key modifier={2.25} $hidden={hideModifiers}>
+          key
+        </Key>
+      </Row>
+      <Row>
+        <Key modifier={2.25} $hidden={hideModifiers}>
+          key
+        </Key>
+        {Array.from({ length: 10 }).map((_, i) => (
+          <Key key={i}>key</Key>
+        ))}
+        <Key modifier={2.75} $hidden={hideModifiers}>
+          key
+        </Key>
+      </Row>
+    </Container>
+  )
+}
+
+const Container = styled.div`
+  width: 1000px;
+  background-color: grey;
+`
+
+const Row = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+`
+const Key = styled.div<{ modifier?: number; $hidden?: boolean }>`
+  width: calc(100% / 15 * ${(props) => props.modifier ?? 1});
+  border: 1px solid red;
+  height: 100%;
+  aspect-ratio: ${(props) => props.modifier ?? 1} / 1;
+  opacity: ${(props) => (props.$hidden ? 0 : 1)};
+`

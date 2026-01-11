@@ -1,0 +1,47 @@
+{
+  "name": "minikeys",
+  "version": "0.2.2",
+  "description": "A javascript library that plays the piano",
+  "keywords": [
+    "minikeys",
+    "piano"
+  ],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "homepage": "https://liamp.uk/minikeys",
+  "bugs": {
+    "url": "https://github.com/liampuk/minikeys/issues"
+  },
+  "author": "Liam Piesley <liampuk@gmail.com> (https://liamp.uk)",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/liampuk/minikeys.git"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "type": "module",
+  "license": "MIT",
+  "devDependencies": {
+    "prettier": "^3.5.1",
+    "tsup": "^8.3.6",
+    "typescript": "^5.7.2",
+    "vitest": "^3.0.5"
+  },
+  "scripts": {
+    "build": "tsup",
+    "ci": "npm run build && npm run check-format && npm run lint && npm run test",
+    "lint": "tsc",
+    "test": "vitest run",
+    "format": "prettier --write .",
+    "check-format": "prettier --check ."
+  }
+}
